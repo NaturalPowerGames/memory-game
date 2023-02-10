@@ -36,7 +36,7 @@
         <input type="number" name="quantity" min="5" max="12">
     </form>
     <p>
-        <button>Comenzar Juego</button>
+        <button id="comenzar-juego" class="boton">Comenzar Juego</button>
     </p>
     <main>
         <section class="section1">
@@ -239,9 +239,13 @@
         </section>
         <section class="section2">
             <div  id="aciertos" class="estadisticas">Aciertos: 0</div>
-            <div  id="tiempo-restante" class="estadisticas">Tiempo:0</div>
             <div id="puntos-consecutivos" class="estadisticas">Puntos Consecutivos</div>
-            <div id="contador-puntos" class="estadisticas">Contador Puntos</div>
+            <div id="contador-parejas-faltantes" class = estadisticas>Parejas Faltantes</div>
+            <input type="hidden" value="terminaste">
+            <div  id="tiempo-total" class="estadisticas">Tiempo:0</div>
+            <div id="puntos-totales" class="estadisticas">Puntos Totales</div>
+            
+            <p><button id="boton-jugar-de-nuevo" class="boton"> Jugar de Nuevo</button></p>
             
 
         </section>
