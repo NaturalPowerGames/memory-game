@@ -7,7 +7,7 @@ body{
 
 main{
     background-color:  #B533FF;
-    border: 1px solid black;
+    width: 950px;
     margin:30 px auto;
     display: flex;
     align-items: center;
@@ -24,8 +24,11 @@ main{
 }
 .estadisticas{
     border: 1px solid white;
-    height: 50px;
-    width: 250px;
+    height: 80px;
+    border-radius: 8px;
+    padding: 8px 20px;
+    box-sizing: border-box;
+    color: white;
 }
 button{
     background-color: white;
