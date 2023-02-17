@@ -39,14 +39,6 @@ function destapar(id){
         aciertos++
         mostrarAciertos.innerHTML= `Aciertos: ${aciertos}`
         //premios para los aciertos//
-    }else{
-      setTimeout(()=>{
-        tarjeta1.innerHTML=" "
-        tarjeta2.innerHTML=" "
-        tarjeta1.disabled= false
-        tarjeta2.disabled= false
-        tarjetasDestapadas=0
-      },2000)  
     }
     }
   
