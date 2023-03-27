@@ -1,48 +1,47 @@
+.card{
+  width: 50px;
+  height: 50px;
+}
+
+#card-container{
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  flex-wrap: wrap;
+  padding: 10px;
+  width: 300px;
+  gap: 10px;
+}
+
+.card-back{
+  background-image: url("../iconos/Accessory_05.png");
+  animation: reverse;
+}
+
+.card-front{
+  color: black;
+}
+
+
 body{
- background-color: lightcoral;
+ background-color:aquamarine;
  font-family: sans-serif; 
  color:white;
     
 }
-.card{
-    width: 50px;
-    height: 50px;
-  }
-  
-  #card-container{
-    display: flex;
-    flex-direction: row;
-    background-color: white;
-    flex-wrap: wrap;
-    padding: 10px;
-    width: 300px;
-    gap: 10px;
-  }
-  
-  .card-back{
-    background-image: url("../iconos/Accessory_05.png");
-    animation: reverse;
-  }
-  
-  .card-front{
-    color: black;
-  }
-  
-  
 main{
     border:1px solid black;
     width: 900px;
     margin:30 px auto;
-    display:flex;
+    display: flex;
     align-items: center;
-    margin: 20px 30px 10px; 
-  
 }
 .oprimir{
     background-color:aquamarine;
     width: 100px;
     height: 60px;
     border-radius: 1px;
+
 }
 .section1{
     height: 450;
@@ -61,8 +60,8 @@ main{
 .estadisticas{
     border: 1px solid white;
     height: 70px;
-    border-radius: 5px;
-    padding: 5px 10px;
+    border-radius: 8px;
+    padding: 8px 20px;
     box-sizing: border-box;
     color: white;
 }
@@ -85,14 +84,3 @@ button:hover{
     background-color:aqua;
     color: white;
 }
-.nuevo-juego{
-    background: aquamarine;
-    width: 80px;
-    height: 70px;
-    display:auto;
-}
-
-
-
-
-
