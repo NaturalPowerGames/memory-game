@@ -2,10 +2,13 @@
 let cardContainer = document.getElementById('card-container');
 let cardAmountSelector = document.getElementById('card-amount-selector');
 let mostrarAciertos = document.getElementById("aciertos");
-let spanContadorAciertos = document.getElementById("contador_aciertos");
+let spanContadorAciertos = document.getElementById("contador-aciertos");
+let tiempoTotal = document.getElementById("contador-cronometro");
+let comenzarJuego = document.getElementById("comenzar-juego")//para manipular boton comenzar juego//
 let cardAmunt = 4;
 let cards;
 let lastCard;
+let aciertos = 0;
 
 function generateCardListeners(){
     let cards = document.getElementsByClassName('card');   
@@ -15,7 +18,7 @@ function generateCardListeners(){
         {
         cards[i].classList.remove('card-back');
         cards[i].classList.add('card-front');
-        })
+        
        
         if(!lastCard){ //si no existe//
           lastCard = cards[i];
@@ -33,18 +36,36 @@ function generateCardListeners(){
                 console.log(`Last card:${lastCard.innerHTML}, current card: ${i}`);
                 
                lastCard.classList.remove('card-front');
-                lastCard.classList.add('card-back');
-                lastCard = null;
-                cards[i].classList.remove('card-front');
-                cards[i].classList.add('card-back');
+               lastCard.classList.add('card-back');
+               lastCard = null;
+               cards[i].classList.remove('card-front');
+               cards[i].classList.add('card-back');
             }
           }
-          cardAmountSelector.addEventListener('change', function(){
-            cardAmunt = this.value;
-            
-          })
-        }
+        })
       }
+  }
+          cardAmountSelector.addEventListener('change', function(){
+            cardAmunt = this.value;      
+         
+  });
+    comenzarJuego.addEventListener("click",function time(){
+      let time = 30;
+      tiempoTotal.classList.add("card");
+      let reloj = setInterval(()=>{
+        time--
+        tiempoTotal.innerHTML = time;
+        if(time == 0){
+          clearInterval(reloj);
+          console.log("se acabo el tiempo");
+        }
+      },1000)
+    } );
+  
+
+  
+
+  
         function generate() {
           //ejemplo     8        /2
          let array = Array(cardAmunt/2);    //vacio, pero las posiciones son: 0 1 2 3, si el usuario escogio 8 cartas
