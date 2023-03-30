@@ -5,162 +5,164 @@ let mostrarAciertos = document.getElementById("aciertos");
 let spanContadorAciertos = document.getElementById("contador-aciertos");
 let tiempoTotal = document.getElementById("contador-cronometro");
 let comenzarJuego = document.getElementById("comenzar-juego");
-let puntosConsecutivos = document.getElementById("puntos-consecutivos");
-let aciertosConsecutivos = document.getElementById("aciertos-consecutivos");
+let puntosConsecutivosDisplay = document.getElementById("puntos-consecutivos");
+let aciertosConsecutivosDisplay = document.getElementById("aciertos-consecutivos");
 let puntosTotales = document.getElementById("puntos-totales");
 let totalPuntos = document.getElementById("total-general");
 
-let cardAmunt = 4;
+let cantidadDeParejasIniciales = 4;
 let cards;
 let lastCard;
-let aciertos = 0;
-let resultadoPuntosConsecutivos = 0;
+let puntos = 0;
+let aciertosConsecutivos = 0;
 
+function generate() 
+{
+  //ejemplo     8        /2
+  let array = Array(cantidadDeParejasIniciales / 2);    //vacio, pero las posiciones son: 0 1 2 3, si el usuario escogio 8 cartas
+  for (let i = 0; i < array.length; i++) {
+      array[i] = i;
+  } //lleno, posicion 0 = 0, posicion 1 = 1, ... 
+  array = array.concat(array);
 
-function generateCardListeners(){
-    let cards = document.getElementsByClassName('card');   
+  //array = array de 8 posiciones con  0 1 2 3 0 1 2 3
+  array.sort(() => Math.random() - 0.5);
+  //arreglado aleatoriamente
 
-    for(let i = 0; i < cards.length; i++){
-        cards[i].addEventListener('click', function ()
-        {
-        cards[i].classList.remove('card-back');
-        cards[i].classList.add('card-front');
-        
-       
-        if(!lastCard){ //si no existe//
-          lastCard = cards[i];         
-          } else{
-             if (lastCard.innerHTML == cards[i].innerHTML){
-                //acierto//
-                
-               aciertos++
-               lastCard = null;
-               mostrarAciertos.innerHTML=`Aciertos: ${aciertos}`
-               spanContadorAciertos.innerHTML = `ContadorAciertos:${aciertos}`                            
-          } else
-            {
-                console.log(`Last card:${lastCard.innerHTML}, current card: ${i}`);
-                
-               lastCard.classList.remove('card-front');
-               lastCard.classList.add('card-back');
-               lastCard = null;
-               cards[i].classList.remove('card-front');
-               cards[i].classList.add('card-back');
-            }
-          }
-        if (lastCard == cards[i]){
-            resultadoPuntosConsecutivos = aciertos *2
-            puntosConsecutivos.innerHTML=`PuntosConsecutivos:${resultadoPuntosConsecutivos}`
-            aciertosConsecutivos.innerHTML=`Puntos:${resultadoPuntosConsecutivos}` 
-        } else {                
-          resultadoPuntosConsecutivos = 0;
-          }
-        })
-      }
+  cardContainer.innerHTML = '';
+  for (let i = 0; i < cantidadDeParejasIniciales; i++) {
+      let div = document.createElement('div');
+      div.innerHTML = array[i];
+      div.classList.add('card', 'card-back');
+
+      cardContainer.appendChild(div);
   }
-          cardAmountSelector.addEventListener('change', function(){
-            cardAmunt = this.value;      
-         
-  });
-    comenzarJuego.addEventListener("click",function time(){
-      let time = 30;
-      tiempoTotal.classList.add("card");
-      let reloj = setInterval(()=>{
+  generateCardListeners();
+}
+generate();
+
+function generateCardListeners() {
+    let cards = document.getElementsByClassName('card');
+
+    for (let i = 0; i < cards.length; i++) {
+        cards[i].addEventListener('click', function () {
+            cards[i].classList.remove('card-back');
+            cards[i].classList.add('card-front');
+
+
+            if (!lastCard) 
+            { //si no existe//
+                lastCard = cards[i];
+            } 
+            else 
+            {
+                if (lastCard.innerHTML == cards[i].innerHTML)
+                {
+                    //acierto//
+                    if(aciertosConsecutivos > 0)
+                    {
+                      puntos += 2;
+                    }
+                    else 
+                    {
+                      puntos++;
+                    }
+                    lastCard = null;
+                    //hacer campo para mostrar puntos
+                    mostrarAciertos.innerHTML = `Aciertos: ${puntos}`;
+                    // spanContadorAciertos.innerHTML = `ContadorAciertos:${puntos}` no es necesario? tal vez?
+                    //calculo aciertos consecutivos
+                    aciertosConsecutivos++;
+                    aciertosConsecutivosDisplay.innerHTML = `Aciertos Consecutivos:${aciertosConsecutivos}`;
+                    //calculo parejas restantes
+                    //
+                } 
+                else 
+                {
+                  lastCard.classList.remove('card-front');
+                  lastCard.classList.add('card-back');
+                  lastCard = null;
+                  cards[i].classList.remove('card-front');
+                  cards[i].classList.add('card-back');
+                  //calculo aciertos consecutivos
+                  aciertosConsecutivos = 0;
+                  aciertosConsecutivosDisplay.innerHTML = `Aciertos Consecutivos:${aciertosConsecutivos}`;
+                }
+            }
+        })
+    }
+}
+cardAmountSelector.addEventListener('change', function () {
+    cantidadDeParejasIniciales = this.value;
+
+});
+comenzarJuego.addEventListener("click", function time() {
+    let time = 30;
+    tiempoTotal.classList.add("card");
+    let reloj = setInterval(() => {
         time--
         tiempoTotal.innerHTML = time;
-        if(time == 0){
-          clearInterval(reloj);
-          console.log("se acabo el tiempo");
+        if (time == 0) {
+            clearInterval(reloj);
+            console.log("se acabo el tiempo");
         }
-      },1000)
-    } ); 
-
-   resultadoTotal();
-
-    function resultadoTotal(spanContadorAciertos,aciertosConsecutivos){
-      puntosTotales = spanContadorAciertos + aciertosConsecutivos;
-      totalPuntos.innerHTML = `${puntosTotales}`;
-    }
-
- 
-
-  
-        function generate() {
-          //ejemplo     8        /2
-         let array = Array(cardAmunt/2);    //vacio, pero las posiciones son: 0 1 2 3, si el usuario escogio 8 cartas
-         for (let i = 0; i < array.length; i++) {        
-             array[i] = i;
-         } //lleno, posicion 0 = 0, posicion 1 = 1, ... 
-         array = array.concat(array);
-         
-         //array = array de 8 posiciones con  0 1 2 3 0 1 2 3
-         array.sort(() => Math.random() - 0.5);
-         //arreglado aleatoriamente
-      
-       cardContainer.innerHTML = '';
-       for(let i = 0; i < cardAmunt; i++){
-         let div = document.createElement('div');
-         div.innerHTML = array[i];
-         div.classList.add('card', 'card-back');
-       
-         cardContainer.appendChild(div);
-       }
-       generateCardListeners();
-      }
-      generate();
-
-     
-
-      
-      
-      
-
-        /*if(!lastCard){
-          lastCard = cards[i].innerHTML;
-          console.log(lastCard);
-        }else{
-          console.log(lastCard === cards[i].innerHTML);
-        }
-      })
-    }
-   
-  }*/
-  
-  
+    }, 1000)
+});
 
 
-  
+
+
+
+
+
+
+
+/*if(!lastCard){
+  lastCard = cards[i].innerHTML;
+  console.log(lastCard);
+}else{
+  console.log(lastCard === cards[i].innerHTML);
+}
+})
+}
+
+}*/
+
+
+
+
+
           //si no existe//
-        /*if(!lastCard){ 
-          lastCard = cards[i].innerHTML;
-          console.log(lastCard);
-        } else {
-            if (lastCard == cards[i].innerHTML) {
-                //acierto
-                aciertos++
-             mostrarAciertos.innerHTML=`Aciertos: ${aciertos}` 
-            } else
-            {
-                lastCard = "";
-                cards[i].classList.add('card-back');
-                cards[i].classList.remove('card-front');
-            }
-          console.log(lastCard === cards[i].innerHTML);
-          }*/
-  
+/*if(!lastCard){
+  lastCard = cards[i].innerHTML;
+  console.log(lastCard);
+} else {
+    if (lastCard == cards[i].innerHTML) {
+        //acierto
+        aciertos++
+     mostrarAciertos.innerHTML=`Aciertos: ${aciertos}`
+    } else
+    {
+        lastCard = "";
+        cards[i].classList.add('card-back');
+        cards[i].classList.remove('card-front');
+    }
+  console.log(lastCard === cards[i].innerHTML);
+  }*/
+
      // })//
   //  }//
   //}//
 
-  
 
-  
 
-   
-     
-        
 
-  
+
+
+
+
+
+
 
 //funcion principal//
 // function destapar(id){
@@ -192,9 +194,8 @@ function generateCardListeners(){
 //         //premios para los aciertos//
 //     }
 //     }
-  
 
-       
-        
-        
-  
+
+
+
+
