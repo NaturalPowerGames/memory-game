@@ -4,11 +4,18 @@ let cardAmountSelector = document.getElementById('card-amount-selector');
 let mostrarAciertos = document.getElementById("aciertos");
 let spanContadorAciertos = document.getElementById("contador-aciertos");
 let tiempoTotal = document.getElementById("contador-cronometro");
-let comenzarJuego = document.getElementById("comenzar-juego")//para manipular boton comenzar juego//
+let comenzarJuego = document.getElementById("comenzar-juego");
+let puntosConsecutivos = document.getElementById("puntos-consecutivos");
+let aciertosConsecutivos = document.getElementById("aciertos-consecutivos");
+let puntosTotales = document.getElementById("puntos-totales");
+let totalPuntos = document.getElementById("total-general");
+
 let cardAmunt = 4;
 let cards;
 let lastCard;
 let aciertos = 0;
+let resultadoPuntosConsecutivos = 0;
+
 
 function generateCardListeners(){
     let cards = document.getElementsByClassName('card');   
@@ -21,17 +28,16 @@ function generateCardListeners(){
         
        
         if(!lastCard){ //si no existe//
-          lastCard = cards[i];
-          
-          } else {
-            if (lastCard.innerHTML == cards[i].innerHTML) {
+          lastCard = cards[i];         
+          } else{
+             if (lastCard.innerHTML == cards[i].innerHTML){
                 //acierto//
                 
                aciertos++
                lastCard = null;
                mostrarAciertos.innerHTML=`Aciertos: ${aciertos}`
-               spanContadorAciertos.innerHTML = `ContadorAciertos:${aciertos}`
-            } else
+               spanContadorAciertos.innerHTML = `ContadorAciertos:${aciertos}`                            
+          } else
             {
                 console.log(`Last card:${lastCard.innerHTML}, current card: ${i}`);
                 
@@ -41,6 +47,13 @@ function generateCardListeners(){
                cards[i].classList.remove('card-front');
                cards[i].classList.add('card-back');
             }
+          }
+        if (lastCard == cards[i]){
+            resultadoPuntosConsecutivos = aciertos *2
+            puntosConsecutivos.innerHTML=`PuntosConsecutivos:${resultadoPuntosConsecutivos}`
+            aciertosConsecutivos.innerHTML=`Puntos:${resultadoPuntosConsecutivos}` 
+        } else {                
+          resultadoPuntosConsecutivos = 0;
           }
         })
       }
@@ -60,10 +73,16 @@ function generateCardListeners(){
           console.log("se acabo el tiempo");
         }
       },1000)
-    } );
-  
+    } ); 
 
-  
+   resultadoTotal();
+
+    function resultadoTotal(spanContadorAciertos,aciertosConsecutivos){
+      puntosTotales = spanContadorAciertos + aciertosConsecutivos;
+      totalPuntos.innerHTML = `${puntosTotales}`;
+    }
+
+ 
 
   
         function generate() {
