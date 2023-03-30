@@ -2,19 +2,20 @@
 let cardContainer = document.getElementById('card-container');
 let cardAmountSelector = document.getElementById('card-amount-selector');
 let mostrarAciertos = document.getElementById("aciertos");
-let spanContadorAciertos = document.getElementById("contador-aciertos");
 let tiempoTotal = document.getElementById("contador-cronometro");
 let comenzarJuego = document.getElementById("comenzar-juego");
-let puntosConsecutivosDisplay = document.getElementById("puntos-consecutivos");
+let parejasFaltantesDisplay =document.getElementById("contador-parejas-faltantes");
 let aciertosConsecutivosDisplay = document.getElementById("aciertos-consecutivos");
 let puntosTotales = document.getElementById("puntos-totales");
-let totalPuntos = document.getElementById("total-general");
+
 
 let cantidadDeParejasIniciales = 4;
 let cards;
 let lastCard;
 let puntos = 0;
 let aciertosConsecutivos = 0;
+let parejasRestantes = 0;
+let aciertos = 0;
 
 function generate() 
 {
@@ -56,26 +57,33 @@ function generateCardListeners() {
             } 
             else 
             {
-                if (lastCard.innerHTML == cards[i].innerHTML)
-                {
-                    //acierto//
-                    if(aciertosConsecutivos > 0)
-                    {
-                      puntos += 2;
-                    }
-                    else 
-                    {
-                      puntos++;
-                    }
-                    lastCard = null;
-                    //hacer campo para mostrar puntos
-                    mostrarAciertos.innerHTML = `Aciertos: ${puntos}`;
-                    // spanContadorAciertos.innerHTML = `ContadorAciertos:${puntos}` no es necesario? tal vez?
-                    //calculo aciertos consecutivos
-                    aciertosConsecutivos++;
-                    aciertosConsecutivosDisplay.innerHTML = `Aciertos Consecutivos:${aciertosConsecutivos}`;
-                    //calculo parejas restantes
-                    //
+            if (lastCard.innerHTML == cards[i].innerHTML)
+              {
+                 //acierto//
+            if(aciertosConsecutivos > 0)
+            {
+                puntos += 2;
+               }
+              else 
+            {
+                puntos++;
+                }
+                lastCard = null;
+                //hacer campo para mostrar puntos
+                puntosTotales.innerHTML = `Puntos Totales: ${puntos}`;
+                mostrarAciertos.innerHTML = `Aciertos: ${puntos}`;
+                //calculo aciertos consecutivos
+                aciertosConsecutivos++;
+                aciertosConsecutivosDisplay.innerHTML = `Aciertos Consecutivos:${aciertosConsecutivos}`;
+                //calculo parejas restantes// 
+                if( parejasRestantes == cantidadDeParejasIniciales & aciertos > 0){
+                 parejasRestantes--
+                }
+                else{
+                  parejasRestantes = 0;
+                }
+                parejasFaltantesDisplay.innerHTML = `Parejas Faltantes : ${parejasRestantes}`             
+                
                 } 
                 else 
                 {
