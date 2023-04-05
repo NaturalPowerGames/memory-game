@@ -7,6 +7,7 @@ let comenzarJuego = document.getElementById("comenzar-juego");
 let parejasFaltantesDisplay =document.getElementById("contador-parejas-faltantes");
 let aciertosConsecutivosDisplay = document.getElementById("aciertos-consecutivos");
 let puntosTotales = document.getElementById("puntos-totales");
+let jugarDeNuevo = document.getElementById("boton-jugar-de-nuevo");
 
 
 let cantidadDeParejasIniciales = 4;
@@ -19,6 +20,7 @@ let aciertos = 0;
 
 function generate() 
 {
+  parejasRestantes =cantidadDeParejasIniciales
   //ejemplo     8        /2
   let array = Array(cantidadDeParejasIniciales / 2);    //vacio, pero las posiciones son: 0 1 2 3, si el usuario escogio 8 cartas
   for (let i = 0; i < array.length; i++) {
@@ -76,12 +78,7 @@ function generateCardListeners() {
                 aciertosConsecutivos++;
                 aciertosConsecutivosDisplay.innerHTML = `Aciertos Consecutivos:${aciertosConsecutivos}`;
                 //calculo parejas restantes// 
-                if( parejasRestantes == cantidadDeParejasIniciales & aciertos > 0){
-                 parejasRestantes--
-                }
-                else{
-                  parejasRestantes = 0;
-                }
+                parejasRestantes --;                
                 parejasFaltantesDisplay.innerHTML = `Parejas Faltantes : ${parejasRestantes}`             
                 
                 } 
@@ -112,9 +109,19 @@ comenzarJuego.addEventListener("click", function time() {
         tiempoTotal.innerHTML = time;
         if (time == 0) {
             clearInterval(reloj);
-            console.log("se acabo el tiempo");
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Se acabo el Tiempo',
+              showConfirmButton: true,
+            })
+            .then((result)=>{
+              if(result.isConfirmed){
+                location.reload();
+              }
+            })     
         }
-    }, 1000)
+    },1000);
 });
 
 
