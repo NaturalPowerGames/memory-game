@@ -4,7 +4,7 @@ let cardAmountSelector = document.getElementById('card-amount-selector');
 let mostrarAciertos = document.getElementById("aciertos");
 let tiempoTotal = document.getElementById("contador-cronometro");
 let comenzarJuego = document.getElementById("comenzar-juego");
-let parejasFaltantesDisplay =document.getElementById("contador-parejas-faltantes");
+let parejasFaltantesDisplay = document.getElementById("contador-parejas-faltantes");
 let aciertosConsecutivosDisplay = document.getElementById("aciertos-consecutivos");
 let puntosTotales = document.getElementById("puntos-totales");
 let jugarDeNuevo = document.getElementById("boton-jugar-de-nuevo");
@@ -18,31 +18,30 @@ let aciertosConsecutivos = 0;
 let parejasRestantes = 0;
 let aciertos = 0;
 
-function generate() 
-{
-  parejasRestantes =cantidadDeParejasIniciales
-  //ejemplo     8        /2
-  let array = Array(cantidadDeParejasIniciales*2);    //vacio, pero las posiciones son: 0 1 2 3, si el usuario escogio 8 cartas
-  for (let i = 0; i < array.length; i++) {
-      array[i] = i;
-  } //lleno, posicion 0 = 0, posicion 1 = 1, ... 
-  array = array.concat(array);
+function generate() {
+    parejasRestantes = cantidadDeParejasIniciales;
+    //ejemplo     8        /2
+    let array = Array(cantidadDeParejasIniciales);    //vacio, pero las posiciones son: 0 1 2 3, si el usuario escogio 8 cartas 0-8
+    console.log("Cantidad escogida:" + cantidadDeParejasIniciales + "array length: " + array.length);
+    for (let i = 0; i < array.length; i++) {
+        array[i] = i;
+    } //lleno, posicion 0 = 0, posicion 1 = 1, ... 
+    array = array.concat(array);
 
-  //array = array de 8 posiciones con  0 1 2 3 0 1 2 3
-  array.sort(() => Math.random() - 0.5);
-  //arreglado aleatoriamente
+    //array = array de 8 posiciones con  0 1 2 3 0 1 2 3
+    array.sort(() => Math.random() - 0.5);
+    //arreglado aleatoriamente
+    cardContainer.innerHTML = '';
+    for (let i = 0; i < array.length; i++) {
+        let div = document.createElement('div');
+        div.innerHTML = array[i];
+        div.classList.add('card', 'card-back');
 
-  cardContainer.innerHTML = '';
-  for (let i = 0; i < cantidadDeParejasIniciales*2; i++) {
-      let div = document.createElement('div');
-      div.innerHTML = array[i];
-      div.classList.add('card', 'card-back');
+        cardContainer.appendChild(div);
+    }
 
-      cardContainer.appendChild(div);
-  }
-  
-  
-  generateCardListeners();
+
+    generateCardListeners();
 }
 generate();
 
@@ -51,69 +50,67 @@ function generateCardListeners() {
 
     for (let i = 0; i < cards.length; i++) {
         cards[i].addEventListener('click', function () {
+            if (!cards[i].classList.contains('card-back')) return;
             cards[i].classList.remove('card-back');
             cards[i].classList.add('card-front');
 
+           
 
-            if (!lastCard) 
-            { //si no existe//
+            if (!lastCard) { //si no existe//
                 lastCard = cards[i];
-            } 
-            else 
-            {
-            if (lastCard.innerHTML == cards[i].innerHTML)
-              {
-                 //acierto//
-            if(aciertosConsecutivos > 0)
-            {
-                puntos += 2;
-               }
-              else 
-            {
-                puntos++;
-                }
-                lastCard = null;
-                //hacer campo para mostrar puntos
-                puntosTotales.innerHTML = `Puntos Totales: ${puntos}`;
-                mostrarAciertos.innerHTML = `Aciertos: ${puntos}`;
+            }
+            else {
+                if (lastCard.innerHTML == cards[i].innerHTML) {
+                    //acierto//
+                    if (aciertosConsecutivos > 0) {
+                        puntos += 2;
+                    }
+                    else {
+                        puntos++;
+                    }
+                    lastCard = null;
+                    //hacer campo para mostrar puntos
+                    puntosTotales.innerHTML = `Puntos Totales: ${puntos}`;
+                    mostrarAciertos.innerHTML = `Aciertos: ${puntos}`;
 
-                //calculo parejas restantes// 
-                parejasRestantes --;                
-                parejasFaltantesDisplay.innerHTML = `Parejas Faltantes : ${parejasRestantes}`
-                
-                if(parejasRestantes == 0){
-                  Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Ganaste!!',
-                    text:'Felicitaciones'    
-                  })
+                    //calculo parejas restantes// 
+                    parejasRestantes--;
+                    parejasFaltantesDisplay.innerHTML = `Parejas Faltantes : ${parejasRestantes}`
+
+                    if (parejasRestantes == 0) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Ganaste!!',
+                            text: 'Felicitaciones'
+                        })
+                    }
+
+                    //calculo aciertos consecutivos
+                    aciertosConsecutivos++;
+                    aciertosConsecutivosDisplay.innerHTML = `Aciertos Consecutivos:${aciertosConsecutivos}`;
+
                 }
-                
-                //calculo aciertos consecutivos
-                aciertosConsecutivos++;
-                aciertosConsecutivosDisplay.innerHTML = `Aciertos Consecutivos:${aciertosConsecutivos}`;
-                
-                } 
-                else 
-                {
-                  lastCard.classList.remove('card-front');
-                  lastCard.classList.add('card-back');
-                  lastCard = null;
-                  cards[i].classList.remove('card-front');
-                  cards[i].classList.add('card-back');
-                  //calculo aciertos consecutivos
-                  aciertosConsecutivos = 0;
-                  aciertosConsecutivosDisplay.innerHTML = `Aciertos Consecutivos:${aciertosConsecutivos}`;
+                else {
+                    lastCard.classList.remove('card-front');
+                    lastCard.classList.add('card-back');
+                    lastCard = null;
+                    cards[i].classList.remove('card-front');
+                    cards[i].classList.add('card-back');
+                    //calculo aciertos consecutivos
+                    aciertosConsecutivos = 0;
+                    aciertosConsecutivosDisplay.innerHTML = `Aciertos Consecutivos:${aciertosConsecutivos}`;
                 }
             }
         })
     }
 }
-cardAmountSelector.addEventListener('change', function () {
-    cantidadDeParejasIniciales = this.value;
 
+//Seleccion de numero de parte del usuario
+cardAmountSelector.addEventListener('change', function () {
+   cantidadDeParejasIniciales = parseInt(this.value);
 });
+
 comenzarJuego.addEventListener("click", function time() {
     let time = 90;
     tiempoTotal.classList.add("card");
@@ -124,19 +121,19 @@ comenzarJuego.addEventListener("click", function time() {
         if (time == 0) {
             clearInterval(reloj);
             Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: 'Se acabo el Tiempo',
-              showConfirmButton: true,
+                position: 'center',
+                icon: 'error',
+                title: 'Se acabo el Tiempo',
+                showConfirmButton: true,
             })
-            .then((result)=>{
-              if(result.isConfirmed){
-                location.reload();
-              }
-            })      
-            
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                })
+
         }
-    },1000);
+    }, 1000);
 });
 
 
