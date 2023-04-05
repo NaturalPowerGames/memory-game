@@ -22,7 +22,7 @@ function generate()
 {
   parejasRestantes =cantidadDeParejasIniciales
   //ejemplo     8        /2
-  let array = Array(cantidadDeParejasIniciales / 2);    //vacio, pero las posiciones son: 0 1 2 3, si el usuario escogio 8 cartas
+  let array = Array(cantidadDeParejasIniciales*2);    //vacio, pero las posiciones son: 0 1 2 3, si el usuario escogio 8 cartas
   for (let i = 0; i < array.length; i++) {
       array[i] = i;
   } //lleno, posicion 0 = 0, posicion 1 = 1, ... 
@@ -33,13 +33,15 @@ function generate()
   //arreglado aleatoriamente
 
   cardContainer.innerHTML = '';
-  for (let i = 0; i < cantidadDeParejasIniciales; i++) {
+  for (let i = 0; i < cantidadDeParejasIniciales*2; i++) {
       let div = document.createElement('div');
       div.innerHTML = array[i];
       div.classList.add('card', 'card-back');
 
       cardContainer.appendChild(div);
   }
+  
+  
   generateCardListeners();
 }
 generate();
@@ -74,12 +76,23 @@ function generateCardListeners() {
                 //hacer campo para mostrar puntos
                 puntosTotales.innerHTML = `Puntos Totales: ${puntos}`;
                 mostrarAciertos.innerHTML = `Aciertos: ${puntos}`;
+
+                //calculo parejas restantes// 
+                parejasRestantes --;                
+                parejasFaltantesDisplay.innerHTML = `Parejas Faltantes : ${parejasRestantes}`
+                
+                if(parejasRestantes == 0){
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Ganaste!!',
+                    text:'Felicitaciones'    
+                  })
+                }
+                
                 //calculo aciertos consecutivos
                 aciertosConsecutivos++;
                 aciertosConsecutivosDisplay.innerHTML = `Aciertos Consecutivos:${aciertosConsecutivos}`;
-                //calculo parejas restantes// 
-                parejasRestantes --;                
-                parejasFaltantesDisplay.innerHTML = `Parejas Faltantes : ${parejasRestantes}`             
                 
                 } 
                 else 
@@ -102,8 +115,9 @@ cardAmountSelector.addEventListener('change', function () {
 
 });
 comenzarJuego.addEventListener("click", function time() {
-    let time = 30;
+    let time = 90;
     tiempoTotal.classList.add("card");
+    comenzarJuego.classList.add("disabled");
     let reloj = setInterval(() => {
         time--
         tiempoTotal.innerHTML = time;
@@ -119,7 +133,8 @@ comenzarJuego.addEventListener("click", function time() {
               if(result.isConfirmed){
                 location.reload();
               }
-            })     
+            })      
+            
         }
     },1000);
 });
