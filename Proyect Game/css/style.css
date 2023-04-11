@@ -1,42 +1,103 @@
 body{
+ width:900px;
+ height: 750px;
  background-color: lightcoral;
  font-family: sans-serif; 
+ color:white;
     
 }
+main{   
+    width: 850px;
+    height: 650px;
+    border-radius:2px;
+    display:flex; 
 
+}
 
-main{
-    background-color:  #B533FF;
-    border: 1px solid black;
-    margin:30 px auto;
+.card{
+    width: 70px;
+    height: 70px;
+  }
+  
+  #card-container{
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    background-color: white;
+    flex-wrap: wrap;
+    padding:10px,10px 10px 20px;
+    width: 430px;
+    height:500px;
+    gap: 10px;
+    
+  }
+  
+  .card-back{
+    background-image: url("../iconos/Accessory_05.png");
+    animation: reverse;
+  }
+  
+  .card-front{
+    color: black;
+  }
+
+         
+
+.oprimir{
+    background-color:hwb(240 0% 0%);
+    color:white;
+    width: 200px;
+    height: 60px;
+    margin-bottom: 20px;
+    border-radius: 8px;
 }
 .section1{
+    height: 450;
     padding: 0 10px 10px 10px;
+    background-color:#9C27B0 ;
+    border-radius: 4px;
 }
-.section2{
-    background-color:blue;
+.section2{    
     width: 250px;
-    height: 400px;
+    height: 550px;
     border-top-right-radius:8px ;
     border-bottom-right-radius: 8px;
+    padding: 50px 50px 50px 50px;
+    text-align: center;
+    
 }
 .estadisticas{
     border: 1px solid white;
-    height: 50px;
-    width: 250px;
+    height: 70px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    color: white;
 }
-button{
-    background-color: white;
-    height: 100px;
-    width: 100px;
-    border:1px solid white;    
+
+button:hover{
+    cursor:pointer;
 }
 .jugar{
     width: 150px;
-    height: 50px;
+    height: 100px;
     border-radius: 2px;
     background-color:aqua;
     color: white;
 }
+h1{
+    text-align: center;
+}
+p{
+    text-align: center;
+}
+footer{
+    text-align: center;
+    cursor:not-allowed;
+    padding-bottom: 50px;
+
+
+}
+
+
+
+
