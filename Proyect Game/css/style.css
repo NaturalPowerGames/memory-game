@@ -25,10 +25,10 @@ main{
     background-color: white;
     flex-wrap: wrap;
     padding:10px,10px 10px 20px;
-    width: 370px;
-    height:510px;
+    width: 430px;
+    height:500px;
     gap: 10px;
-   
+    
   }
   
   .card-back{
@@ -61,7 +61,9 @@ main{
     height: 550px;
     border-top-right-radius:8px ;
     border-bottom-right-radius: 8px;
-    padding: 10px 10px 10px 10px;
+    padding: 50px 50px 50px 50px;
+    text-align: center;
+    
 }
 .estadisticas{
     border: 1px solid white;
