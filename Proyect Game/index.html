@@ -16,26 +16,10 @@
     <p>
         Bienvenido a este Maravilloso Juego, te invitamos a ejercitar tu memoria, buena suerte!! 😂
     </p>
-
-  
-              
-        <img src="iconos/Accessory_05.png" alt="tarjeta">
-        <img src="iconos/Crafting_01 .png" alt="tarjeta">
-        <img src="iconos/Food_01.png"      alt="tarjeta">
-        <img src="iconos/Food_05.png"      alt="tarjeta">
-        <img src="iconos/Food_10.png"      alt="tarjeta">
-        <img src="iconos/Potion_02.png"    alt="tarjeta">
-        <img src="iconos/Potion_05.png"    alt="tarjeta">
-        <img src="iconos/Weapon_01.png"    alt="tarjeta">
-        <img src="iconos/Weapon_04.png"    alt="tarjeta">
-        <img src="iconos/Weapon_08.png"    alt="tarjeta">
-        <img src="iconos/Weapon_10.png"    alt="tarjeta">
-        <img src="iconos/Weapon_12.png"    alt="tarjeta">
-
-    
-    
-        <p><strong> Ingresa cuantos pares de Tarjetas quieres para jugar </strong></p>
-        <select id="card-amount-selector">
+           
+       
+    <p><strong> Ingresa cuantos pares de Tarjetas quieres para jugar </strong></p>
+        <select class="select" id="card-amount-selector">
             <option value="4">4</option>
             <option value="8">8</option>
             <option value="12">12</option>
@@ -46,13 +30,12 @@
             <button class="oprimir" id="comenzar-juego" onclick="generate()">Comenzar Juego</button>
             </p>     
     </div>
-        <section id="seleccionar-tarjeta">
-            <h2>Elige Tarjeta</h2>          
-          </section>
-          <div id="card-container"></div>    
+    <main>
+        
+    <div id="card-container"></div>   
            
                   
-            
+           
         <section class="section2">
             <h2  id="aciertos" class="estadisticas">Aciertos : <span id="contador-aciertos"> 0 </span></h2>
             <h2 id="aciertos-consecutivos" class="estadisticas">Puntos Consecutivos:<span id="puntos-consecutivos"> 0 </span></h2>
@@ -61,9 +44,11 @@
             <h2 id="puntos-totales" class="estadisticas">Puntos Totales : <span id="total-general"> 0 </span></h2>
             
         </section> 
-        <div>
-            <p><button id="boton-jugar-de-nuevo" class="nuevo-juego"> Jugar de Nuevo</button></p>
-        </div> 
+        
+    </main>
+    <footer>
+        <p >Elaborado por:Ramón Lopez</p>
+    </footer>
         
     
     <script src="juego.js"></script>
